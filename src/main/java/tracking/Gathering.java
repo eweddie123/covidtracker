@@ -52,7 +52,7 @@ public class Gathering {
 	}
 	
 	public String getGatheringName() {
-		return gatheringName;
+		return   gatheringName;
 	}
 	
 	@Transactional
