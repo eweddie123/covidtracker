@@ -63,7 +63,7 @@ public class UserGatheringController {
 		return userGatheringRepository.findByGatheringId(gatheringId);
 	}
 	
-	@GetMapping(path="/all")
+	@GetMapping(path="/usergatherings")
 	public @ResponseBody Iterable<UserGathering> getAllUserGatherings() {
 		// This returns a JSON or XML with the users
 		return userGatheringRepository.findAll();

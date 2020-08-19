@@ -50,18 +50,18 @@ public class UserController {
 		return "Deleted";
 	}
 	
-	@GetMapping(path="/find/{id}")
+	@GetMapping(path="/{id}")
 	public @ResponseBody Optional<User> getUser (@PathVariable("id") int id) {
 		System.out.println("getUserStatus id = " + id);
 	    return userRepository.findById(id);
 	}
 	
 	@GetMapping(path="/find")
-	public @ResponseBody Iterable<Optional<User>> getUserByLastName (@PathVariable("id") int id, @RequestParam (required = true) String lastName) {
+	public @ResponseBody Iterable<Optional<User>> getUserByLastName (@RequestParam (required = true) String lastName) {
 	    return userRepository.findByLastName(lastName);
 	}
 	
-	@GetMapping(path="/find")
+	@GetMapping(path="/users")
 	public @ResponseBody Iterable<User> getAllUsers() {
 		// This returns a JSON or XML with the users
 		return userRepository.findAll();
