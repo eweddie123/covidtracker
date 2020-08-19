@@ -50,12 +50,12 @@ public class GatheringController {
 		return "Edited";
 	}
 	
-	@GetMapping(path="/find/{id}")
+	@GetMapping(path="/{id}")
 	public @ResponseBody Optional<Gathering> getGathering (@PathVariable("id") int id) {
 		return gatheringRepository.findById(id);
 	}
 	
-	@GetMapping(path="/find")
+	@GetMapping(path="/gatherings")
 	public @ResponseBody Iterable<Gathering> getAllGatherings() {
 		return gatheringRepository.findAll();
 	}
