@@ -7,8 +7,8 @@ import static org.junit.Assert.assertNull;
 import org.junit.Before;
 import org.junit.Test;
 
-import tracking.UserAccount;
-import tracking.UserGraph;
+import tracker.UserAccount;
+import tracker.UserGraph;
 
 public class UserGraphTester {
 	private UserGraph userbase;

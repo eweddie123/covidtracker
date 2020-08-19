@@ -1,4 +1,4 @@
-package tracking;
+package tracker.controller;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
@@ -14,6 +14,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import tracker.dao.GatheringRepository;
+import tracker.domain.Gathering;
 
 @Controller // This means that this class is a Controller
 @RequestMapping(path="/gathering") // This means URL's start with gathering (after Application path)

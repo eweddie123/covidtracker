@@ -1,4 +1,4 @@
-package tracking;
+package tracker.domain;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

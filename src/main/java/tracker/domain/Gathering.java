@@ -1,4 +1,4 @@
-package tracking;
+package tracker.domain;
 
 import java.time.LocalDateTime;
 

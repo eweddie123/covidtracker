@@ -1,9 +1,11 @@
-package tracking;
+package tracker.dao;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
 
 import org.springframework.data.repository.CrudRepository;
+
+import tracker.domain.Gathering;
 
 // This will be AUTO IMPLEMENTED by Spring into a Bean called userRepository
 // CRUD refers Create, Read, Update, Delete

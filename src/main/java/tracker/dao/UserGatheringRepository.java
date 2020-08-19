@@ -1,8 +1,10 @@
-package tracking;
+package tracker.dao;
 
 import java.util.Optional;
 
 import org.springframework.data.repository.CrudRepository;
+
+import tracker.domain.UserGathering;
 
 public interface UserGatheringRepository extends CrudRepository<UserGathering, Integer> {
 	
