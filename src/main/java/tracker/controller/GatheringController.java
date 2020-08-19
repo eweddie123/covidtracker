@@ -18,51 +18,46 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import tracker.dao.GatheringRepository;
 import tracker.domain.Gathering;
 
-@Controller // This means that this class is a Controller
-@RequestMapping(path="/gathering") // This means URL's start with gathering (after Application path)
+@Controller
+@RequestMapping(path="/gathering")
 public class GatheringController {
 	@Autowired
 	private GatheringRepository gatheringRepository;
 	
-	@PostMapping(path="/add") // Map ONLY POST Requests
+	@PostMapping(path="/add")
 	public @ResponseBody String addNewGathering (@RequestBody Gathering gathering) {
 		gatheringRepository.save(gathering);
 		return "Saved";
 	}
 	
-	@DeleteMapping(path="/delete/{id}") // Map ONLY DELETE Requests
+	@DeleteMapping(path="/delete/{id}")
 	public @ResponseBody String deleteGathering (@PathVariable("id") int id) {
 		gatheringRepository.deleteById(id);
 		return "Deleted";
-	}
-	
-	@GetMapping(path="/{id}") // Map ONLY GET Requests
-	public @ResponseBody Optional<Gathering> getGathering (@PathVariable("id") int id) {
-		return gatheringRepository.findById(id);
-	}
-	
-	/*@GetMapping(path="/find") // Map ONLY GET Requests
-	public @ResponseBody Iterable<Optional<Gathering>> getGatheringListByDate (@RequestParam Date date) {
-		return gatheringRepository.findByDate(date);
-	}*/
-	
-	@GetMapping(path="/all")
-	public @ResponseBody Iterable<Gathering> getAllGatherings() {
-		// This returns a JSON or XML with the users
-		return gatheringRepository.findAll();
 	}
 	
 	@PutMapping(path="/edit/{id}")
 	public @ResponseBody String editGathering(@PathVariable("id") int id, @RequestBody Gathering editGathering) {
 		gatheringRepository.findById(id)
 		.map(gathering -> {
-			gathering.setOrganizerId(editGathering.getOrganizerId());
 			gathering.setGatheringName(editGathering.getGatheringName());
 			gathering.setDateTime(editGathering.getDateTime());
 			gathering.setLocation(editGathering.getLocation());
+			gathering.setDescription(editGathering.getDescription());
 			return gatheringRepository.save(gathering);
 		});
 		
 		return "Edited";
 	}
+	
+	@GetMapping(path="/find/{id}")
+	public @ResponseBody Optional<Gathering> getGathering (@PathVariable("id") int id) {
+		return gatheringRepository.findById(id);
+	}
+	
+	@GetMapping(path="/find")
+	public @ResponseBody Iterable<Gathering> getAllGatherings() {
+		return gatheringRepository.findAll();
+	}
+
 }

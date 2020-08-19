@@ -27,8 +27,11 @@ public class User {
 	private String email;
   
 	@NotNull
-    @Column(name = "status")
-	private String status;
+    @Column(name = "score")
+	private Integer score;
+	
+    @Column(name = "picture")
+	private String picture;
 	
   	public Integer getUserId() {
 	  	return userId;
@@ -58,11 +61,19 @@ public class User {
 	  	this.email = email;
   	}
   	
-  	public String getStatus() {
-	  	return email;
+  	public Integer getScore() {
+	  	return score;
   	}
 
-  	public void setStatus(String status) {
-	  	this.status = status;
+  	public void setScore(Integer score) {
+	  	this.score = score;
+  	}
+  	
+  	public String getPicture() {
+	  	return picture;
+  	}
+
+  	public void setPicture(String picture) {
+	  	this.picture = picture;
   	}
 }

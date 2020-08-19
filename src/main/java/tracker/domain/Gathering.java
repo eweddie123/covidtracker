@@ -35,6 +35,10 @@ public class Gathering {
     @Column(name = "location")
 	private String location;
 	
+	@NotNull
+    @Column(name = "description")
+	private String description;
+	
 	public Integer getGatheringId() {
 		return gatheringId;
 	}
@@ -71,5 +75,13 @@ public class Gathering {
 	
 	public String getLocation() {
 		return location;
+	}
+	
+	public void setDescription(String description) {
+		this.description = description;
+	}
+	
+	public String getDescription() {
+		return description;
 	}
 }

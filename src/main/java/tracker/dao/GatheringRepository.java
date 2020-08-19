@@ -16,7 +16,6 @@ public interface GatheringRepository extends CrudRepository<Gathering, Integer> 
 	
 	Iterable<Optional<Gathering>> findByGatheringName(String gatheringName);
 	
-	//Iterable<Optional<Gathering>> findByDate(Date dateTime);
-	
 	Iterable<Optional<Gathering>> findByOrganizerId(Integer organizerId);
+	
 }

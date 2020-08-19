@@ -15,37 +15,49 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import tracker.dao.UserGatheringRepository;
+import tracker.domain.Gathering;
 import tracker.domain.UserGathering;
 
 @Controller
-@RequestMapping(path="/ug")
+@RequestMapping(path="/usergathering")
 public class UserGatheringController {
 	@Autowired
 	private UserGatheringRepository userGatheringRepository;
 	
-	@PostMapping(path="/add") // Map ONLY POST Requests
+	@PostMapping(path="/add")
 	public @ResponseBody String addNewUserGathering (@RequestBody UserGathering userGathering) {
 		userGatheringRepository.save(userGathering);
 		return "Saved";
 	}
 	
-	@DeleteMapping(path="/delete/{id}") // Map ONLY DELETE Requests
+	@DeleteMapping(path="/delete/{id}")
 	public @ResponseBody String deleteUserGathering (@PathVariable("id") int id) {
 		userGatheringRepository.deleteById(id);
 		return "Deleted";
 	}
 	
-	@GetMapping(path="/{id}") // Map ONLY GET Requests
+	@PutMapping(path="/edit/{id}")
+	public @ResponseBody String editUserGathering(@PathVariable("id") int id, @RequestBody UserGathering editUserGathering) {
+		userGatheringRepository.findById(id)
+		.map(userGathering -> {
+			userGathering.setMask(editUserGathering.getMask());
+			return userGatheringRepository.save(userGathering);
+		});
+		
+		return "Edited";
+	}
+	
+	@GetMapping(path="/{id}")
 	public @ResponseBody Optional<UserGathering> getUserGathering (@PathVariable("id") int id) {
 		return userGatheringRepository.findById(id);
 	}
 	
-	@GetMapping(path="/find/{userId}") // Map ONLY GET Requests
+	@GetMapping(path="/find/{userId}")
 	public @ResponseBody Iterable<Optional<UserGathering>> getUserGatheringListByUserId (@PathVariable("userId") int userId) {
 		return userGatheringRepository.findByUserId(userId);
 	}
 	
-	@GetMapping(path="/find/{gatheringId}") // Map ONLY GET Requests
+	@GetMapping(path="/find/{gatheringId}")
 	public @ResponseBody Iterable<Optional<UserGathering>> getUserGatheringListByGatheringId 
 	(@PathVariable("gatheringId") Integer gatheringId) {
 		return userGatheringRepository.findByGatheringId(gatheringId);
@@ -56,4 +68,5 @@ public class UserGatheringController {
 		// This returns a JSON or XML with the users
 		return userGatheringRepository.findAll();
 	}
+
 }

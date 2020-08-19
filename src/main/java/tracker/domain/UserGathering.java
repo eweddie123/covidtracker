@@ -23,8 +23,8 @@ public class UserGathering {
 	private Integer gatheringId;
 	
 	@NotNull
-    @Column(name = "status")
-	private String status;
+    @Column(name = "score")
+	private Integer score;
 	
 	@NotNull
     @Column(name = "mask")
@@ -50,12 +50,12 @@ public class UserGathering {
 		return gatheringId;
 	}
 	
-	public void setStatus(String status) {
-		this.status = status;
+	public void setScore(Integer score) {
+		this.score = score;
 	}
 	
-	public String getStatus() {
-		return status;
+	public Integer getScore() {
+		return score;
 	}
 	
 	public void setMask(boolean mask) {
