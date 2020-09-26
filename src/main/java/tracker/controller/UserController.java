@@ -3,7 +3,6 @@ package tracker.controller;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,57 +12,57 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
-import tracker.dao.UserRepository;
 import tracker.domain.User;
+import tracker.service.UserService;
 
-@Controller
+@RestController
 @RequestMapping(path="/user")
 public class UserController {
-	@Autowired // This means to get the bean called userRepository
-	private UserRepository userRepository;
+	@Autowired 
+	private UserService userService;
 	
 	@PostMapping(path="/add")
-	public @ResponseBody String addNewUser (@RequestBody User user) {
-	  userRepository.save(user);
+	public String addNewUser (@RequestBody User user) {
+	  userService.save(user);
 	  return "Saved";
 	}
 	
+	@PostMapping(path = "/go/{userId}/{gatheringId}")
+	public String goToGathering(@PathVariable("userId") int userId, @PathVariable("gatheringId") int gatheringId) {
+		System.out.println("goToGathering(): userId = " + userId);
+		System.out.println("goToGathering(): gatheringId = " + gatheringId);
+		userService.goToGathering(userId, gatheringId);
+		return "Done";
+	}
+	
 	@PutMapping(path="/edit/{id}")
-	public @ResponseBody String editUser(@PathVariable("id") int id, @RequestBody User editUser) {
-		userRepository.findById(id)
-		.map(user -> {
-			user.setFirstName(editUser.getFirstName());
-			user.setLastName(editUser.getLastName());
-			user.setEmail(editUser.getEmail());
-			user.setScore(editUser.getScore());
-			user.setPicture(editUser.getPicture());
-			return userRepository.save(user);
-		});
-		
+	public String editUser(@PathVariable("id") int id, @RequestBody User editUser) {
+		userService.putById(id, editUser);
 		return "Edited";
 	}
 	
 	@DeleteMapping(path="/delete/{id}")
-	public @ResponseBody String deleteUser (@PathVariable("id") int id) {
-		userRepository.deleteById(id);
+	public String deleteUser (@PathVariable("id") int id) {
+		userService.deleteById(id);
 		return "Deleted";
 	}
 	
 	@GetMapping(path="/{id}")
-	public @ResponseBody Optional<User> getUser (@PathVariable("id") int id) {
+	public Optional<User> getUser (@PathVariable("id") int id) {
 		System.out.println("getUserStatus id = " + id);
-	    return userRepository.findById(id);
+	    return userService.findById(id);
 	}
 	
 	@GetMapping(path="/find")
-	public @ResponseBody Iterable<Optional<User>> getUserByLastName (@RequestParam (required = true) String lastName) {
-	    return userRepository.findByLastName(lastName);
+	public Iterable<Optional<User>> getUserByLastName (@RequestParam (name = "lastName", required = false, defaultValue = "Wang") String lastName) {
+		System.out.println("getUserByLastName(): lastName=" + lastName);
+	    return userService.findByLastName(lastName);
 	}
 	
 	@GetMapping(path="/users")
-	public @ResponseBody Iterable<User> getAllUsers() {
-		// This returns a JSON or XML with the users
-		return userRepository.findAll();
+	public Iterable<User> getAllUsers() {
+		return userService.findAll();
 	}
 }

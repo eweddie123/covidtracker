@@ -1,53 +1,58 @@
 package tracker.domain;
 
+import java.util.Objects;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import javax.persistence.FetchType;
+import javax.persistence.ManyToOne;
+import javax.persistence.MapsId;
 
 @Entity
 public class UserGathering {
-	@Id
-  	@GeneratedValue(strategy=GenerationType.AUTO)
-	private Integer userGatheringId;
 	
-	@NotNull
-    @Column(name = "user_id")
-	private Integer userId;
+	@EmbeddedId
+	private UserGatheringId id;
 	
-	@NotNull
-    @Column(name = "gathering_id")
-	private Integer gatheringId;
+	@ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
+	@MapsId("userId")
+	private User user;
 	
-	@NotNull
+	@ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
+	@MapsId("gatheringId")
+	private Gathering gathering;
+	
     @Column(name = "score")
 	private Integer score;
 	
-	@NotNull
     @Column(name = "mask")
 	private boolean mask;
 	
-	public Integer getUserGatheringId() {
-		return userGatheringId;
+	private UserGathering() {
+		
 	}
 	
-	public void setUserId(Integer userId) {
-		this.userId = userId;
+	public UserGathering(User user, Gathering gathering) {
+		this.user = user;
+		this.gathering = gathering;
+		this.id = new UserGatheringId(user.getId(), gathering.getId());
 	}
 	
-	public Integer getUserId() {
-		return userId;
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		
+		if (o ==null || getClass() != o.getClass()) return false;
+		
+		UserGathering that = (UserGathering) o;
+		return Objects.equals(user, that.user) && Objects.equals(gathering, that.gathering);
 	}
 	
-	public void setGatheringId(Integer gatheringId) {
-		this.gatheringId = gatheringId;
-	}
-	
-	public Integer getGatheringId() {
-		return gatheringId;
+	@Override
+	public int hashCode() {
+		return Objects.hash(user, gathering);
 	}
 	
 	public void setScore(Integer score) {
