@@ -1,19 +1,29 @@
 package tracker.domain;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 
-@Entity // This tells Hibernate to make a table out of this class
+@Entity 
+@Table(name="user")
 public class User {
 	@Id
   	@GeneratedValue(strategy=GenerationType.AUTO)
-	private Integer userId;
+	private Integer id;
 	
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<UserGathering> userGatherings = new ArrayList<>();
+
 	@NotNull
     @Column(name = "first_name")
   	private String firstName;
@@ -33,8 +43,16 @@ public class User {
     @Column(name = "picture")
 	private String picture;
 	
-  	public Integer getUserId() {
-	  	return userId;
+	public List<UserGathering> getUserGatherings() {
+		return userGatherings;
+	}
+
+	public void setUserGatherings(List<UserGathering> userGatherings) {
+		this.userGatherings = userGatherings;
+	}
+
+  	public Integer getId() {
+	  	return id;
   	}
 
   	public String getFirstName() {
@@ -76,4 +94,25 @@ public class User {
   	public void setPicture(String picture) {
 	  	this.picture = picture;
   	}
+  	
+  	public void addGathering(Gathering gathering) {
+  		UserGathering userGathering = new UserGathering(this, gathering);
+  		this.userGatherings.add(userGathering);
+  		gathering.getUserGatherings().add(userGathering);
+  	}
+  	
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		
+		if (o ==null || getClass() != o.getClass()) return false;
+		
+		User that = (User) o;
+		return Objects.equals(this.id, that.id);
+	}
+	
+	@Override
+	public int hashCode() {
+		return Objects.hash(this.id);
+	}
 }

@@ -1,10 +1,13 @@
 C:\Users\Eddie Wang\eclipse-workspace\tracker\src\main\java\tracker\controller\UserGatheringController.java
 C:\Users\Eddie Wang\eclipse-workspace\tracker\src\main\java\tracker\domain\User.java
-C:\Users\Eddie Wang\eclipse-workspace\tracker\src\main\java\tracker\controller\GatheringController.java
-C:\Users\Eddie Wang\eclipse-workspace\tracker\src\main\java\tracker\dao\GatheringRepository.java
 C:\Users\Eddie Wang\eclipse-workspace\tracker\src\main\java\tracker\domain\Gathering.java
-C:\Users\Eddie Wang\eclipse-workspace\tracker\src\main\java\tracker\dao\UserRepository.java
 C:\Users\Eddie Wang\eclipse-workspace\tracker\src\main\java\tracker\controller\UserController.java
+C:\Users\Eddie Wang\eclipse-workspace\tracker\src\main\java\tracker\repository\GatheringRepository.java
+C:\Users\Eddie Wang\eclipse-workspace\tracker\src\main\java\tracker\domain\UserGatheringId.java
 C:\Users\Eddie Wang\eclipse-workspace\tracker\src\main\java\tracker\Application.java
-C:\Users\Eddie Wang\eclipse-workspace\tracker\src\main\java\tracker\dao\UserGatheringRepository.java
 C:\Users\Eddie Wang\eclipse-workspace\tracker\src\main\java\tracker\domain\UserGathering.java
+C:\Users\Eddie Wang\eclipse-workspace\tracker\src\main\java\tracker\repository\UserRepository.java
+C:\Users\Eddie Wang\eclipse-workspace\tracker\src\main\java\tracker\service\GatheringService.java
+C:\Users\Eddie Wang\eclipse-workspace\tracker\src\main\java\tracker\controller\GatheringController.java
+C:\Users\Eddie Wang\eclipse-workspace\tracker\src\main\java\tracker\repository\UserGatheringRepository.java
+C:\Users\Eddie Wang\eclipse-workspace\tracker\src\main\java\tracker\service\UserService.java
