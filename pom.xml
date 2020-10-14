@@ -16,7 +16,7 @@
 
 	<properties>
 		<java.version>1.8</java.version>
-		<version.junit>4.12</version.junit>
+		<version.junit>4.13.1</version.junit>
 	</properties>
 
 	<dependencies>
